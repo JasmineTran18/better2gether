@@ -3,14 +3,39 @@ namespace SpriteKind {
 }
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (Bunni.vy == 0) {
-        Bunni.vy = -200
+        Bunni.vy = -215
+    }
+})
+controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
+    if (!(facing_right)) {
+        Bunni.image.flipX()
+        facing_right = true
+    }
+})
+controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
+    if (facing_right) {
+        Bunni.image.flipX()
+        facing_right = false
+    }
+})
+controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
+    if (facing_right) {
+        Bunny.image.flipX()
+        facing_right = false
     }
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (Bunny.vy == 0) {
-        Bunny.vy = -200
+        Bunny.vy = -215
     }
 })
+controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
+    if (!(facing_right)) {
+        Bunny.image.flipX()
+        facing_right = true
+    }
+})
+let facing_right = false
 let Bunni: Sprite = null
 let Bunny: Sprite = null
 namespace userconfig {
@@ -278,3 +303,5 @@ controller.player1.moveSprite(Bunny, 100, 0)
 controller.player2.moveSprite(Bunni, 100, 0)
 scene.cameraFollowSprite(Bunny)
 tiles.setCurrentTilemap(tilemap`level1`)
+mp.setPlayerState(mp.playerSelector(mp.PlayerNumber.One), facing_right, 1)
+mp.setPlayerState(mp.playerSelector(mp.PlayerNumber.Two), facing_right, 1)
